@@ -1,7 +1,8 @@
 <?php
-include(dirname(__FILE__)."/classes/EShopinionOrderInput.php");
-include(dirname(__FILE__)."/classes/EShopinionClient.php");
-include(dirname(__FILE__)."/classes/EShopinionOrder.php");
+
+include(dirname(__FILE__) . "/classes/EShopinionOrderInput.php");
+include(dirname(__FILE__) . "/classes/EShopinionClient.php");
+include(dirname(__FILE__) . "/classes/EShopinionOrder.php");
 
 if (!defined('_PS_VERSION_'))
     exit;
@@ -71,7 +72,7 @@ class EShopinion extends Module {
         // ORDER INPUT
         // Order
         $order = new EShopinionOrder();
-        $order->id =  isset($params['order']) && isset($params['order']->id) ? $params['order']->id : null;
+        $order->id = isset($params['order']) && isset($params['order']->id) ? $params['order']->id : null;
         $order->products = null;
         $order->date = isset($params['order']) && isset($params['order']->date_add) ? $params['order']->date_add : null;
 
@@ -86,6 +87,24 @@ class EShopinion extends Module {
         $orderInput->token = Configuration::get('MOD_ESHOPINION_TOKEN');
         $orderInput->order = $order;
         $orderInput->client = $client;
+
+
+        $url = "http:/api-test.eshopinion.com/orders";
+
+        // CURL
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($orderInput));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'Content-Type: application/json',
+            'Content-Length: ' . strlen(json_encode($orderInput))));
+
+
+        // Result
+        $result = curl_exec($ch);
 
 
         return true;
