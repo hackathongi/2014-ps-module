@@ -18,8 +18,8 @@ class EShopinion extends Module {
 
         parent::__construct();
 
-        $this->displayName = $this->l('EShopinion Module');
-        $this->description = $this->l('Description of my module.');
+        $this->displayName = "EShopinion ". $this->l('Module');
+        $this->description = $this->l('Adds an EShopinion block');
 
         $this->confirmUninstall = $this->l('Are you sure you want to uninstall?');
 
@@ -60,7 +60,9 @@ class EShopinion extends Module {
         $this->context->smarty->assign(array(
             'message' => $message,
             'module_name' => $this->name,
+            'MOD_ESHOPINION_API_USERNAME_FIELD_KEY' => $this->l('API Username'),
             'MOD_ESHOPINION_API_USERNAME' => Configuration::get('MOD_ESHOPINION_API_USERNAME'),
+            'MOD_ESHOPINION_API_KEY_FIELD_KEY' => $this->l('API Key'),
             'MOD_ESHOPINION_API_KEY' => Configuration::get('MOD_ESHOPINION_API_KEY'),
         ));
     }
