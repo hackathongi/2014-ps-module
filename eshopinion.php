@@ -1,4 +1,7 @@
 <?php
+include(dirname(__FILE__)."/classes/EShopinionOrderInput.php");
+include(dirname(__FILE__)."/classes/EShopinionClient.php");
+include(dirname(__FILE__)."/classes/EShopinionOrder.php");
 
 if (!defined('_PS_VERSION_'))
     exit;
@@ -18,7 +21,7 @@ class EShopinion extends Module {
 
         parent::__construct();
 
-        $this->displayName = "EShopinion ". $this->l('Module');
+        $this->displayName = "EShopinion " . $this->l('Module');
         $this->description = $this->l('Adds an EShopinion block');
 
         $this->confirmUninstall = $this->l('Are you sure you want to uninstall?');
@@ -68,6 +71,27 @@ class EShopinion extends Module {
     }
 
     public function hookNewOrder($params) {
+
+        // ORDER INPUT
+        // Order
+        $order = new EShopinionOrder();
+        $order->id =  isset($params['order']) && isset($params['order']->id) ? $params['order']->id : null;
+        $order->products = null;
+        $order->date = isset($params['order']) && isset($params['order']->date_add) ? $params['order']->date_add : null;
+
+        // Client 
+        $client = new EShopinionClient();
+        $client->email = isset($params['customer']) && isset($params['customer']->email) ? $params['customer']->email : null;
+        $client->name = isset($params['customer']) && isset($params['customer']->firstname) ? $params['customer']->firstname : null;
+        $client->surname = isset($params['customer']) && isset($params['customer']->lastname) ? $params['customer']->lastname : null;
+        $client->language = $this->iso_lang;
+
+        $orderInput = new EShopinionOrderInput();
+        $orderInput->token = "123456";
+        $orderInput->order = $order;
+        $orderInput->client = $client;
+
+
         return true;
     }
 
