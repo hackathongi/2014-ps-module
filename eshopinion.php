@@ -50,8 +50,7 @@ class EShopinion extends Module {
     private function _saveContent() {
         $message = '';
 
-        if (Configuration::updateValue('MOD_ESHOPINION_API_USERNAME', Tools::getValue('MOD_ESHOPINION_API_USERNAME')) &&
-                Configuration::updateValue('MOD_ESHOPINION_API_KEY', Tools::getValue('MOD_ESHOPINION_API_KEY')))
+        if (Configuration::updateValue('MOD_ESHOPINION_TOKEN', Tools::getValue('MOD_ESHOPINION_TOKEN')))
             $message = $this->displayConfirmation($this->l('Your settings have been saved'));
         else
             $message = $this->displayError($this->l('There was an error while saving your settings'));
@@ -63,10 +62,7 @@ class EShopinion extends Module {
         $this->context->smarty->assign(array(
             'message' => $message,
             'module_name' => $this->name,
-            'MOD_ESHOPINION_API_USERNAME_FIELD_KEY' => $this->l('API Username'),
-            'MOD_ESHOPINION_API_USERNAME' => Configuration::get('MOD_ESHOPINION_API_USERNAME'),
-            'MOD_ESHOPINION_API_KEY_FIELD_KEY' => $this->l('API Key'),
-            'MOD_ESHOPINION_API_KEY' => Configuration::get('MOD_ESHOPINION_API_KEY'),
+            'MOD_ESHOPINION_TOKEN' => Configuration::get('MOD_ESHOPINION_TOKEN'),
         ));
     }
 
@@ -87,7 +83,7 @@ class EShopinion extends Module {
         $client->language = $this->iso_lang;
 
         $orderInput = new EShopinionOrderInput();
-        $orderInput->token = "123456";
+        $orderInput->token = Configuration::get('MOD_ESHOPINION_TOKEN');
         $orderInput->order = $order;
         $orderInput->client = $client;
 

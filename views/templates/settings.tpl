@@ -4,12 +4,8 @@
     <legend>Settings</legend>
     <form method="post">
         <p>
-            <label for="MOD_ESHOPINION_API_USERNAME">{$MOD_ESHOPINION_API_USERNAME_FIELD_KEY}:</label>
-            <input id="MOD_ESHOPINION_API_USERNAME" name="MOD_ESHOPINION_API_USERNAME" type="text" value="{$MOD_ESHOPINION_API_USERNAME}" />
-        </p>
-        <p>
-            <label for="MOD_ESHOPINION_API_KEY">{$MOD_ESHOPINION_API_KEY_FIELD_KEY}:</label>
-            <input id="MOD_ESHOPINION_API_KEY" name="MOD_ESHOPINION_API_KEY" type="text" value="{$MOD_ESHOPINION_API_KEY}" />
+            <label for="MOD_ESHOPINION_TOKEN">Token:</label>
+            <input id="MOD_ESHOPINION_TOKEN" name="MOD_ESHOPINION_TOKEN" type="text" value="{$MOD_ESHOPINION_TOKEN}" />
         </p>
         <p>
             <label>&nbsp;</label>
